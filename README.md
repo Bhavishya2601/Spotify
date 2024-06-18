@@ -19,7 +19,7 @@ Welcome to the Spotify Clone! This project is a fully responsive web application
 
 ## Demo
 
-Check out the live demo [here](https://spotify-xi-neon.vercel.app/). 🚀
+Check out the live demo [here](https://bhavishya2601.freewebhostmost.com/). 🚀
 
 ## Technologies Used
 
