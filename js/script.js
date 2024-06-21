@@ -60,12 +60,17 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 const playMusic = (music, pause = false) => {
-  currentSong.src = `/${currFolder}/` + music
+  currentSong.src = `/${currFolder}/` + music 
+  if (!currentSong.src.endsWith('.mp3')){
+    currentSong.src = `/${currFolder}/` + music + '.mp3'
+  } 
+  // }
   if (!pause) {
     currentSong.play()
     play.src = 'img/pause.svg'
   }
-  document.querySelector('.songinfo').innerHTML = decodeURI(music)
+  
+  document.querySelector('.songinfo').innerHTML = decodeURI(music).split('.')[0]
   document.querySelector('.songtime').innerHTML = '00:00 / 00:00'
 }
 
@@ -106,7 +111,6 @@ async function displayAlbums(){
     Array.from(document.getElementsByClassName('card')).forEach((e) => {
       e.addEventListener('click', async (item) => {
         songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`)
-        // console.log(songs);
         
         playMusic(songs[0])
       }
@@ -123,7 +127,7 @@ async function main() {
 
 
 
-  // Attach event listener to play, previous and next buttons
+  // Attach event listener to play and pause buttons
   play.addEventListener('click', () => {
     if (currentSong.paused) {
       currentSong.play()
@@ -182,6 +186,9 @@ async function main() {
   // Add event to volume
   document.querySelector('.range').getElementsByTagName('input')[0].addEventListener('change', (e) => {
     currentSong.volume = parseInt(e.target.value) / 100
+    if (currentSong.volume > 0){
+      volume.src = volume.src.replace('img/mute.svg', 'img/volume.svg')
+    }
   })
 
   // Add the event listener to mute the track
